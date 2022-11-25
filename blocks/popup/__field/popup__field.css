@@ -1,0 +1,17 @@
+.popup__field {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	border: none;
+	border-bottom: 1px solid #000;
+	height: 27px;
+	padding-bottom: 4px;
+	margin-top: 44px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.popup__field:last-of-type {
+	margin-top: 24px;
+}

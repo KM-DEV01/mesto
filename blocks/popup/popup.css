@@ -1,0 +1,24 @@
+.popup {
+	display: none;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, .5);
+	/*реализация с hex	*/
+	/*background: #000;*/
+}
+
+/*.popup::before {*/
+/*	height: 100%;*/
+/*	width: 100%;*/
+/*	top: 0;*/
+/*	left: 0;*/
+/*	content: "";*/
+/*	position: fixed;*/
+/*	background: #000;*/
+/*	opacity: 50%;*/
+/*}*/
