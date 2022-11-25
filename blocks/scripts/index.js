@@ -9,10 +9,6 @@ const popupForm = popup.querySelector('.popup__form');
 const popupName = popupForm.elements['name'];
 const popupCaption = popupForm.elements['caption'];
 
-profileEditButton.addEventListener('click', popupOpen);
-popupCloseButton.addEventListener('click', popupClose);
-popupForm.addEventListener('submit', popupSave);
-
 function popupOpen() {
     popup.classList.add('popup__opened');
     popupFieldsFilling();
@@ -35,3 +31,7 @@ function popupSave(event) {
 
     popupClose();
 }
+
+profileEditButton.addEventListener('click', popupOpen);
+popupCloseButton.addEventListener('click', popupClose);
+popupForm.addEventListener('submit', popupSave);

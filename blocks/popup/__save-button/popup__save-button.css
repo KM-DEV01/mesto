@@ -1,5 +1,6 @@
 .popup__save-button {
 	margin-top: 48px;
+	margin-bottom: 37px;
 	background: #000;
 	font-weight: 400;
 	font-size: 18px;
@@ -7,6 +8,8 @@
 	height: 50px;
 	color: #fff;
 	border: none;
+	cursor: pointer;
+	border-radius: 2px;
 	transition: opacity .2s ease-in;
 }
 
@@ -17,6 +20,7 @@
 @media screen and (max-width: 597px) {
 	.popup__save-button {
 		margin-top: 45px;
+		margin-bottom: 25px;
 		height: 46px;
 		font-size: 14px;
 		line-height: 17px;
