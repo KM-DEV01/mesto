@@ -2,16 +2,18 @@
 
 ### Обзор
 
-* Figma
-* Картинки
+* Описание
+* Технологии
+* Демо
 
-**Figma**
+**Описание**
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+* Проект Mesto является интерактивной страницей, куда можно добавлять фотографии, удалять их и ставить лайки.
 
-**Картинки**
+**Технологии**
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
+* В проекте используются технологии [Flexbox](https://developer.mozilla.org/ru/docs/Learn/CSS/CSS_layout/Flexbox), [Grid Layout](https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout) и [JavaScript](https://developer.mozilla.org/ru/docs/Web/JavaScript).
 
-Удачи!
+**Демо**
+
+* Ссылка
