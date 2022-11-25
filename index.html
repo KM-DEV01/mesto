@@ -78,22 +78,22 @@
 
         </ul>
       </section>
-
       <section class="popup">
-        <form class="popup__container">
+        <div class="popup__container">
           <button type="button" class="popup__close-button button"></button>
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__field" name="name"  placeholder="Имя">
-          <input type="text" class="popup__field" name="caption" placeholder="О себе">
-          <button type="submit" class="popup__save-button">Сохранить</button>
-        </form>
+          <form class="popup__form">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <input type="text" class="popup__field" name="name"  placeholder="Имя">
+            <input type="text" class="popup__field" name="caption" placeholder="О себе">
+            <button type="submit" class="popup__save-button">Сохранить</button>
+          </form>
+        </div>
       </section>
-
     </main>
     <footer class="footer">
-      <h3 class="footer__title">&copy; 2022 Mesto Russia</h3>
+      <h2 class="footer__title">&copy; 2022 Mesto Russia</h2>
     </footer>
   </div>
-  <script src="./script.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
