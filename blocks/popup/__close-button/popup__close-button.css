@@ -3,8 +3,16 @@
 	width: 32px;
 	height: 32px;
 	background: url("../../../images/close-button.svg");
+	background-size: cover;
 	z-index: 2;
-	right: -41px;
-	top: -41px;
-	position: absolute;
+	grid-column-start: 2;
+}
+
+@media screen and (max-width: 597px) {
+	.popup__close-button {
+		width: 20px;
+		height: 20px;
+		grid-column-start: 1;
+		justify-self: end;
+	}
 }

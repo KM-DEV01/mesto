@@ -4,7 +4,7 @@ const profileName = container.querySelector('.profile__name');
 const profileCaption = container.querySelector('.profile__caption');
 const popup = container.querySelector('.popup');
 const popupCloseButton = popup.querySelector('.popup__close-button');
-const popupForm = popup.querySelector('.popup__container');
+const popupForm = popup.querySelector('.popup__form');
 
 const popupName = popupForm.elements['name'];
 const popupCaption = popupForm.elements['caption'];
