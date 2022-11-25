@@ -16,4 +16,4 @@
 
 **Демо**
 
-* Ссылка(https://km-forprojects.github.io/mesto/)
+* [Ссылка](https://km-forprojects.github.io/mesto/)
