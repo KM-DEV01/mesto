@@ -1,0 +1,4 @@
+.popup__closed.popup {
+	opacity: 0;
+	animation: fade-out 500ms forwards;
+}

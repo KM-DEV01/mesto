@@ -4,6 +4,7 @@
 	background: url("../../../images/like-button.svg");
 	border: none;
 	transition: opacity .1s ease-in;
+	cursor: pointer;
 }
 
 .element__like-button:hover {

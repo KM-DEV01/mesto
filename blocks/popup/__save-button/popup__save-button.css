@@ -11,6 +11,7 @@
 	cursor: pointer;
 	border-radius: 2px;
 	transition: opacity .2s ease-in;
+	width: 100%;
 }
 
 .popup__save-button:hover {

@@ -1,0 +1,7 @@
+.image-popup__name {
+	grid-column-start: 1;
+	margin: 2px 0 0 0;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 15px;
+}

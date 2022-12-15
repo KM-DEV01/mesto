@@ -1,9 +1,21 @@
 .element__list {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
-	margin: 0;
+	/*justify-content: center;*/
+	margin: 0 auto;
 	padding: 0;
 	row-gap: 20px;
 	column-gap: 17px;
+}
+
+@media screen and (max-width: 896px) {
+	.element__list {
+		width: 581px;
+	}
+}
+
+@media screen and (max-width: 597px) {
+	.element__list {
+		width: 282px;
+	}
 }

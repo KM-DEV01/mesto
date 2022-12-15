@@ -1,0 +1,19 @@
+.image-popup__close-button {
+	border: none;
+	width: 32px;
+	height: 32px;
+	background: url("../../../images/close-button.svg");
+	background-size: cover;
+	grid-column-start: 2;
+}
+
+@media screen and (max-width: 896px) {
+	.image-popup__close-button {
+		width: 20px;
+		height: 20px;
+		grid-column-start: 1;
+		grid-row-start: 1;
+		margin-bottom: 8px;
+		justify-self: end;
+	}
+}
