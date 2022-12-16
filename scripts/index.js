@@ -47,14 +47,14 @@ const initialCards = [
 
 //Функции кнопок на попапе
 function popupOpen(popup) {
-  popup.classList.add('popup')
+  // popup.classList.add('popup')
   popup.classList.remove('popup_close')
   setTimeout(() => popup.classList.add('popup_animation-state_opened'));
 }
 function popupClose(popup) {
   popup.classList.add('popup_animation-state_closed');
   popup.classList.remove('popup_animation-state_opened');
-  setTimeout(() => popup.classList.remove('popup_animation-state_closed', 'popup'), 500);
+  setTimeout(() => popup.classList.remove('popup_animation-state_closed'), 500);
   setTimeout(() => popup.classList.add('popup_close'), 500);
 }
 function popupSave(onSaveFunc, popup) {
