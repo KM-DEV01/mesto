@@ -1,4 +1,0 @@
-.image-popup__closed.image-popup {
-	opacity: 0;
-	animation: fade-out 500ms forwards;
-}

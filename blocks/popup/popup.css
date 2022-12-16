@@ -1,5 +1,5 @@
 .popup {
-	display: none;
+	display: flex;
 	height: 100%;
 	width: 100%;
 	top: 0;
@@ -8,27 +8,7 @@
 	align-items: center;
 	justify-content: center;
 	background: rgba(0, 0, 0, .5);
+	visibility: hidden;
 	opacity: 0;
 }
 
-.popup.popup__opened {
-	animation: fade-in 500ms forwards;
-}
-
-@keyframes fade-in {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-
-@keyframes fade-out {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0;
-	}
-}
