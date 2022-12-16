@@ -77,7 +77,11 @@ profileEditButton.addEventListener('click', () => {
   popupFieldsFilling();
   popupOpen(popupProfile)
 });
-addButton.addEventListener('click', () => popupOpen(popupCard));
+addButton.addEventListener('click', () => {
+  popupOpen(popupCard);
+  popupImageTitle.value = '';
+  popupImageLink.value = '';
+});
 popupProfileCloseBtn.addEventListener('click', () => popupClose(popupProfile));
 popupCardCloseBtn.addEventListener('click', () => popupClose(popupCard));
 popupProfileForm.addEventListener('submit', event => {
@@ -119,7 +123,6 @@ function openHandler(element) {
     imagePopupName.textContent = elementName;
 
     //анимация
-    console.log(imagePopup)
     popupOpen(imagePopup);
     imagePopupCloseBtn.addEventListener('click', () => popupClose(imagePopup));
   })
