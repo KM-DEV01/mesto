@@ -3,20 +3,28 @@ const profileEditButton = container.querySelector('.profile__edit-button');
 const profileName = container.querySelector('.profile__name');
 const profileCaption = container.querySelector('.profile__caption');
 const addButton = container.querySelector('.profile__add-button');
+const popupCloseButtons = container.querySelectorAll('.popup__close-button');
+const elementContainer = container.querySelector('.element__list');
 
 //Попап профиля
 const popupProfile = container.querySelector('.popup-edit-profile');
-const popupProfileCloseBtn = popupProfile.querySelector('.popup__close-button');
 const popupProfileForm = popupProfile.querySelector('.popup__form');
 const popupProfileName = popupProfileForm.elements['name'];
 const popupProfileProperty = popupProfileForm.elements['property'];
 
 //Попап карточек
 const popupCard = container.querySelector('.popup-add-card');
-const popupCardCloseBtn = popupCard.querySelector('.popup__close-button');
 const popupCardForm = popupCard.querySelector('.popup__form');
 const popupImageTitle = popupCardForm.elements['name'];
 const popupImageLink = popupCardForm.elements['property'];
+
+//Попап изображений
+const imagePopup = container.querySelector('.image-popup');
+const imagePopupPic = imagePopup.querySelector('.image-popup__picture');
+const imagePopupName = imagePopup.querySelector('.image-popup__name');
+
+//Темплейт карточек
+const elementTemplate = document.querySelector('#element-template').content;
 
 const initialCards = [
   {
@@ -46,24 +54,19 @@ const initialCards = [
 ];
 
 //Функции кнопок на попапе
-function popupOpen(popup) {
-  // popup.classList.add('popup')
-  popup.classList.remove('popup_close')
-  setTimeout(() => popup.classList.add('popup_animation-state_opened'));
+function openPopup(popup) {
+  popup.classList.add('popup_opened')
 }
-function popupClose(popup) {
-  popup.classList.add('popup_animation-state_closed');
-  popup.classList.remove('popup_animation-state_opened');
-  setTimeout(() => popup.classList.remove('popup_animation-state_closed'), 500);
-  setTimeout(() => popup.classList.add('popup_close'), 500);
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 }
-function popupSave(onSaveFunc, popup) {
+function savePopup(onSaveFunc, popup) {
   onSaveFunc();
-  popupClose(popup);
+  closePopup(popup);
 }
 
 // функции заполнения полей профиля
-function popupFieldsFilling() {
+function fillPopupFields() {
   popupProfileName.value = profileName.textContent;
   popupProfileProperty.value = profileCaption.textContent;
 }
@@ -74,33 +77,36 @@ function saveProfileChanges () {
 
 // обработчики кнопок в попапе
 profileEditButton.addEventListener('click', () => {
-  popupFieldsFilling();
-  popupOpen(popupProfile)
+  fillPopupFields();
+  openPopup(popupProfile)
 });
 addButton.addEventListener('click', () => {
-  popupOpen(popupCard);
+  openPopup(popupCard);
   popupImageTitle.value = '';
   popupImageLink.value = '';
 });
-popupProfileCloseBtn.addEventListener('click', () => popupClose(popupProfile));
-popupCardCloseBtn.addEventListener('click', () => popupClose(popupCard));
+popupCloseButtons.forEach(button => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
+})
+
 popupProfileForm.addEventListener('submit', event => {
   event.preventDefault();
-  popupSave(saveProfileChanges, popupProfile)
+  savePopup(saveProfileChanges, popupProfile)
 });
 popupCardForm.addEventListener('submit', event => {
   event.preventDefault();
-  popupSave(addNewElement, popupCard);
+  savePopup(addNewElement, popupCard);
 });
 
 // функции обработчики для карточек
-function likeHandler(element) {
+function likeImageCard(element) {
   element.addEventListener('click', event => {
     event.stopPropagation();
     event.target.classList.toggle('element__like-button_active');
   });
 }
-function deleteHandler(element) {
+function deleteImageCard(element) {
   element.addEventListener('click', event => {
     event.stopPropagation();
     event.target.closest('.element__item').remove();
@@ -108,50 +114,40 @@ function deleteHandler(element) {
 }
 
 //Попап картинок
-function openHandler(element) {
+function openImageCard(element) {
   element.addEventListener('click', event => {
     const elementItem = event.target.closest('.element__item');
-    const elementName = elementItem.querySelector('.element__name').textContent;
-    const elementImage = elementItem.querySelector('.element__image').src;
 
-    const imagePopup = container.querySelector('.image-popup');
-    const imagePopupPic = imagePopup.querySelector('.image-popup__picture');
-    const imagePopupName = imagePopup.querySelector('.image-popup__name');
-    const imagePopupCloseBtn = imagePopup.querySelector('.image-popup__close-button');
-
-    imagePopupPic.src = elementImage;
-    imagePopupName.textContent = elementName;
+    imagePopupPic.alt = elementItem.querySelector('.element__image').alt;
+    imagePopupPic.src = elementItem.querySelector('.element__image').src;
+    imagePopupName.textContent = elementItem.querySelector('.element__name').textContent;
 
     //анимация
-    popupOpen(imagePopup);
-    imagePopupCloseBtn.addEventListener('click', () => popupClose(imagePopup));
+    openPopup(imagePopup);
   })
 }
 
 // Добавляет карточки изображений
-const addElement = (name, link) => {
-  const elementTemplate = document.querySelector('#element-template').content;
-
+const createCard = (name, alt, link) => {
   const elementItem = elementTemplate.querySelector('.element__item').cloneNode(true);
-
   const likeButton = elementItem.querySelector('.element__like-button');
   const deleteButton = elementItem.querySelector('.element__delete-button');
-  const elementContainer = document.querySelector('.element__list');
 
   elementItem.querySelector('.element__name').textContent = name;
+  elementItem.querySelector('.element__image').alt = `Место: ${name}`;
   elementItem.querySelector('.element__image').src = link;
 
-  elementContainer.prepend(elementItem);
-
-  likeHandler(likeButton);
-  deleteHandler(deleteButton);
-  openHandler(elementItem);
+  likeImageCard(likeButton);
+  deleteImageCard(deleteButton);
+  openImageCard(elementItem);
+  
+  return elementItem;
 }
 
 function addNewElement () {
   const popupName = popupImageTitle.value;
   const popupProperty = popupImageLink.value;
-  addElement(popupName, popupProperty);
+  elementContainer.prepend(createCard(popupName, `Место: ${popupName}`, popupProperty));
 }
 
-initialCards.reverse().forEach(element => addElement(element.name, element.link));
+initialCards.forEach(element => elementContainer.append(createCard(element.name, `Место: ${element.name}`, element.link)));
