@@ -1,11 +1,6 @@
 .image-popup__container {
-	display: grid;
-	grid-template-columns: 1fr 32px;
-	gap: 8px;
-}
-
-@media screen and (max-width: 896px) {
-	.image-popup__container {
-		grid-template-columns: 1fr;
-	}
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	cursor: default;
 }

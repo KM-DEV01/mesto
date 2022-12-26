@@ -1,12 +1,5 @@
 .popup__container {
-	display: grid;
-	grid-template-columns: 1fr 32px;
-	gap: 8px;
+	display: flex;
 	max-width: 430px;
-}
-
-@media screen and (max-width: 597px) {
-	.popup__container {
-		grid-template-columns: 1fr;
-	}
+	position: relative;
 }

@@ -4,15 +4,16 @@
 	height: 32px;
 	background: url("../../../images/close-button.svg");
 	background-size: cover;
-	z-index: 2;
-	grid-column-start: 2;
+	position: absolute;
+	top: -40px;
+	right: -40px
+;
 }
 
 @media screen and (max-width: 597px) {
 	.popup__close-button {
 		width: 20px;
 		height: 20px;
-		grid-column-start: 1;
-		justify-self: end;
+		right: 0;
 	}
 }
