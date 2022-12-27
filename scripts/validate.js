@@ -28,13 +28,10 @@ function checkInputValidity(formElement, inputElement, config) {
 function setEventListeners(formElement, config) {
   const submitButton = formElement.querySelector(config.submitButtonSelector);
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
-  toggleButton(submitButton, inputList, config);
-
   inputList.forEach(inputElement => {
-    hideInputError(formElement, inputElement, config);
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, config);
-      toggleButton(submitButton, inputList, config);
+      toggleButtonState(submitButton, inputList, config);
     });
   })
 }
@@ -45,16 +42,22 @@ function isValid(inputList) {
 }
 
 //подключить стили кнопки
-function toggleButton(buttonElement, inputList, config) {
+function toggleButtonState(buttonElement, inputList, config) {
   if (isValid(inputList)) {
-    buttonElement.classList.add(config.activeButtonClass);
-    buttonElement.classList.remove(config.inactiveButtonClass);
-    buttonElement.disabled = false;
+    enableSubmitButton(buttonElement, config)
   } else {
-    buttonElement.classList.remove(config.activeButtonClass);
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.disabled = true;
+    disableSubmitButton(buttonElement, config)
   }
+}
+
+function enableSubmitButton(buttonElement, config) {
+  buttonElement.classList.remove(config.inactiveButtonClass);
+  buttonElement.disabled = false;
+}
+
+function disableSubmitButton(buttonElement, config) {
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.disabled = true;
 }
 
 //передать конфиг
