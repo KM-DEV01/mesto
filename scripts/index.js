@@ -41,7 +41,7 @@ enableValidation(validationConfig);
 //Функции кнопок на попапе
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  toggleKeydownListener();
+  addKeyListener();
 }
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -148,16 +148,15 @@ popupList.forEach(popup => {
 });
 
 //Обработчики esc
-function toggleKeydownListener() {
+function addKeyListener() {
   document.addEventListener('keydown', addKeyHandler);
 }
 function removeKeydownListener() {
   document.removeEventListener('keydown', addKeyHandler);
 }
 function addKeyHandler(event) {
-  const keyName = event.key;
   const popup = container.querySelector('.popup_opened')
-  if (keyName === 'Escape'){
+  if (event.key === 'Escape'){
     closePopup(popup);
   }
 }
