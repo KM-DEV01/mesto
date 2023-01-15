@@ -1,4 +1,4 @@
-.element__list {
+.card__list {
 	display: flex;
 	flex-wrap: wrap;
 	/*justify-content: center;*/
@@ -9,13 +9,13 @@
 }
 
 @media screen and (max-width: 896px) {
-	.element__list {
+	.card__list {
 		width: 581px;
 	}
 }
 
 @media screen and (max-width: 597px) {
-	.element__list {
+	.card__list {
 		width: 282px;
 	}
 }

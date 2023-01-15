@@ -1,10 +1,16 @@
+import { initialCards } from './cards.js';
+import { Card } from './Сard.js';
+import { FormValidator } from './Validate.js';
+
 const container = document.querySelector('.page__container');
 const buttonEditProfile = container.querySelector('.profile__edit-button');
 const profileName = container.querySelector('.profile__name');
 const profileCaption = container.querySelector('.profile__caption');
-const buttonAddElement = container.querySelector('.profile__add-button');
-const elementContainer = container.querySelector('.element__list');
+const buttonAddCard = container.querySelector('.profile__add-button');
+const cardContainer = container.querySelector('.card__list');
 const popupList = Array.from(container.querySelectorAll('.popup'));
+const cardTemplate = '#card-template';
+const popupFormList = Array.from(container.querySelectorAll('.popup__form'));
 
 //Попап профиля
 const popupProfile = container.querySelector('.popup_type_profile');
@@ -18,16 +24,8 @@ const popupCardForm = popupCard.querySelector('.popup__form');
 const popupImageTitle = popupCardForm.elements['image-name'];
 const popupImageLink = popupCardForm.elements['url'];
 
-//Попап изображений
-const imagePopup = container.querySelector('.popup_type_picture');
-const imagePopupPic = imagePopup.querySelector('.popup__picture');
-const imagePopupName = imagePopup.querySelector('.popup__picture-name');
-
-//Темплейт карточек
-const elementTemplate = document.querySelector('#element-template').content;
-
 const validationConfig = {
-  formSelector: '.popup__form',
+  // formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save-button',
   // activeButtonClass: 'popup__save-button_valid',
@@ -36,7 +34,10 @@ const validationConfig = {
   errorClass: 'popup__input-error_visible',
 }
 //Включение валидации
-enableValidation(validationConfig);
+popupFormList.forEach(element => {
+  const formValidate = new FormValidator(validationConfig, element)
+  formValidate.enableValidation()
+});
 
 //Функции кнопок на попапе
 function openPopup(popup) {
@@ -45,7 +46,6 @@ function openPopup(popup) {
 }
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  removeKeydownListener();
 }
 function savePopup(onSaveFunc, popup) {
   onSaveFunc();
@@ -61,16 +61,16 @@ function saveProfileChanges () {
   profileName.textContent = popupProfileName.value;
   profileCaption.textContent = popupProfileProperty.value;
 }
-// обработчики кнопок в попапе
+
 buttonEditProfile.addEventListener('click', () => {
   fillPopupFields();
   openPopup(popupProfile);
 });
 
-buttonAddElement.addEventListener('click', () => {
+buttonAddCard.addEventListener('click', () => {
   popupImageTitle.value = '';
   popupImageLink.value = '';
-  disableSubmitButton(popupCard.querySelector(validationConfig.submitButtonSelector), validationConfig);
+  popupCard.querySelector('.popup__save-button').classList.add(validationConfig.inactiveButtonClass);
   openPopup(popupCard);
 });
 
@@ -81,63 +81,32 @@ popupProfileForm.addEventListener('submit', event => {
 
 popupCardForm.addEventListener('submit', event => {
   event.preventDefault();
-  savePopup(addNewElement, popupCard);
+  savePopup(addNewCard, popupCard);
 });
 
-// функции обработчики для карточек
-function likeImageCard(element) {
-  element.addEventListener('click', event => {
-    event.stopPropagation();
-    event.target.classList.toggle('element__like-button_active');
-  });
-}
-function deleteImageCard(element) {
-  element.addEventListener('click', event => {
-    event.stopPropagation();
-    event.target.closest('.element__item').remove();
-  })
-}
+// Добавить карточки изображений
+initialCards.forEach(item => {
+  const card = new Card(item, cardTemplate);
+  const cardElement = card.generateCard();
 
-//Попап картинок
-function openImageCard(element) {
-  element.addEventListener('click', event => {
-    const elementItem = event.target.closest('.element__item');
+  cardElement.addEventListener('click', addKeyListener)
 
-    imagePopupPic.alt = elementItem.querySelector('.element__image').alt;
-    imagePopupPic.src = elementItem.querySelector('.element__image').src;
-    imagePopupName.textContent = elementItem.querySelector('.element__name').textContent;
+  cardContainer.append(cardElement);
+});
 
-    //анимация
-    openPopup(imagePopup);
-  })
+function addNewCard() {
+  const popupCard = {};
+  popupCard.name = popupImageTitle.value;
+  popupCard.alt = `Место: ${popupImageTitle.value}`;
+  popupCard.link = popupImageLink.value;
+
+  const card = new Card(popupCard, cardTemplate);
+  const cardElement = card.generateCard();
+
+  cardContainer.prepend(cardElement);
 }
 
-// Добавляет карточки изображений
-const createCard = (name, alt, link) => {
-  const elementItem = elementTemplate.querySelector('.element__item').cloneNode(true);
-  const buttonLike = elementItem.querySelector('.element__like-button');
-  const buttonDelete = elementItem.querySelector('.element__delete-button');
-
-  elementItem.querySelector('.element__name').textContent = name;
-  elementItem.querySelector('.element__image').alt = `Место: ${name}`;
-  elementItem.querySelector('.element__image').src = link;
-
-  likeImageCard(buttonLike);
-  deleteImageCard(buttonDelete);
-  openImageCard(elementItem);
-  
-  return elementItem;
-}
-
-function addNewElement() {
-  const popupName = popupImageTitle.value;
-  const popupProperty = popupImageLink.value;
-  elementContainer.prepend(createCard(popupName, `Место: ${popupName}`, popupProperty));
-}
-
-initialCards.forEach(element => elementContainer.append(createCard(element.name, `Место: ${element.name}`, element.link)));
-
-//закрыть попап при нажатии на оверлей или кнопку закрыть
+//закрыть попап при нажатии на оверлей или на кнопку закрыть
 popupList.forEach(popup => {
   popup.addEventListener('click', event => {
     const targetClassList = event.target.classList;
@@ -158,7 +127,6 @@ function addKeyHandler(event) {
   const popup = container.querySelector('.popup_opened')
   if (event.key === 'Escape'){
     closePopup(popup);
+    removeKeydownListener();
   }
 }
-
-
