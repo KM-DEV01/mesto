@@ -70,7 +70,12 @@ buttonEditProfile.addEventListener('click', () => {
 buttonAddCard.addEventListener('click', () => {
   popupImageTitle.value = '';
   popupImageLink.value = '';
-  popupCard.querySelector('.popup__save-button').classList.add(validationConfig.inactiveButtonClass);
+
+  const submitButton = popupCard.querySelector('.popup__save-button');
+
+  submitButton.classList.add(validationConfig.inactiveButtonClass);
+  submitButton.disabled = true;
+
   openPopup(popupCard);
 });
 
