@@ -10,12 +10,11 @@ export class Card {
   }
 
   _getTemplate() {
-   const cardElement = document
+   return document
      .querySelector(this._templateSelector)
      .content
      .querySelector('.card__item')
      .cloneNode(true);
-   return cardElement;
   }
 
   generateCard() {
@@ -44,10 +43,15 @@ export class Card {
     event.target.closest('.card__item').remove();
   }
 
+  _getCardInfo = () => {
+    const cardData = {}
+    cardData.name = this._name;
+    cardData.link = this._link;
+    return cardData
+  }
+
   _setEventListeners() {
-    this._cardImage.addEventListener('click', () => {
-      this._handleCardClick(this._name, this._link)
-    });
+    this._cardImage.addEventListener('click', () => this._handleCardClick(this._getCardInfo()));
 
     this._cardLikeButton.addEventListener('click', this._handleLikeImage);
 
