@@ -11,8 +11,6 @@ import {
   buttonEditProfile,
   buttonAddCard,
   cardTemplate,
-  popupProfileName,
-  popupProfileProperty,
   validationConfig,
   popupProfileSelector,
   popupCardSelector,
@@ -42,25 +40,21 @@ function createCard(item) {
   return card.generateCard();
 }
 
-function renderCards(){
-  const cardList = new Section({
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      cardList.addItem(cardElement);
-    }
-  }, '.card__list')
-  cardList.renderItems();
-}
-renderCards();
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const cardElement = createCard(item);
+    cardList.addItem(cardElement);
+  }
+}, '.card__list')
+cardList.renderItems();
 
 //Колбэк при сабмите формы для добавления новой карточки
 function saveNewCard(data) {
   const cardData = {};
   cardData.name = data.imageName;
   cardData.link = data.url;
-  initialCards.unshift(cardData);
-  renderCards();
+  cardList.addItem(createCard(cardData), 'prepend');
 }
 //попап формы карточки
 const popupFormCard = new PopupWithForm(popupCardSelector, saveNewCard);
@@ -72,8 +66,7 @@ const userProfileInfo = new UserInfo(profileFields);
 //заполнить инпуты при редактировании профиля
 function fillProfileInputs() {
   const data = userProfileInfo.getUserInfo();
-  popupProfileName.value = data.name;
-  popupProfileProperty.value = data.about;
+  popupFormProfile.setInputValues(data);
 }
 
 //заполнить поля профиля
