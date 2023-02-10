@@ -7,7 +7,7 @@ export class UserInfo {
   getUserInfo() {
     const profileInfoCurrent = {}
     profileInfoCurrent.name = this._username.textContent;
-    profileInfoCurrent.about = this._about.textContent;
+    profileInfoCurrent.caption = this._about.textContent;
     return profileInfoCurrent
   }
 

@@ -5,16 +5,15 @@ export class Section {
 
     this._renderer = renderer;
   }
-  addItem(element) {
-    this._container.append(element)
-  }
-
-  clear() {
-    this._container.innerHTML = '';
+  addItem(element, insertType = 'append') {
+    if(insertType === 'append') {
+      this._container.append(element);
+      return;
+    }
+    this._container.prepend(element)
   }
 
   renderItems() {
-    this.clear();
     return this._items.forEach(item => {
       this._renderer(item);
     });
