@@ -1,8 +1,8 @@
 export const container = document.querySelector('.page__container');
 export const buttonEditProfile = container.querySelector('.profile__edit-button');
 export const buttonAddCard = container.querySelector('.profile__add-button');
+export const buttonEditAvatar = container.querySelector('.profile__image')
 export const cardTemplate = '#card-template';
-
 
 export const validationConfig = {
   formSelector: '.popup__form',
@@ -17,8 +17,11 @@ export const validationConfig = {
 export const popupProfileSelector = '.popup_type_profile';
 export const popupCardSelector = '.popup_type_card';
 export const popupImageSelector = '.popup_type_picture';
+export const popupConfirm = '.popup_type_confirm';
+export const popupAvatarSelector = '.popup_type_avatar';
 
 export const profileFields = {
   name: '.profile__name',
   about: '.profile__caption',
+  avatar: '.profile__image'
 }

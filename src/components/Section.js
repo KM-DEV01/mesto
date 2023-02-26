@@ -10,7 +10,7 @@ export class Section {
       this._container.append(element);
       return;
     }
-    this._container.prepend(element)
+    this._container.prepend(element);
   }
 
   renderItems() {
