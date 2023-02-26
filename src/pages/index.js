@@ -3,7 +3,7 @@ import {FormValidator} from '../components/FormValidator.js';
 import {Section} from '../components/Section.js';
 import {PopupWithForm} from '../components/PopupWithForm.js';
 import {PopupWithImage} from '../components/PopupWithImage.js';
-import {PopupWithConfirm} from '../components/PopupWithConfirm';
+import {PopupWithConfirmation} from '../components/PopupWithConfirmation';
 import {UserInfo} from '../components/UserInfo.js';
 import {Api} from '../components/Api.js';
 import '../pages/index.css';
@@ -24,7 +24,7 @@ import {
 
 const popupFormCard = new PopupWithForm(popupCardSelector, addCard);
 const popupFormProfile = new PopupWithForm(popupProfileSelector, saveProfileChanges);
-const popupFormConfirm = new PopupWithConfirm(popupConfirm, deleteCard);
+const popupFormConfirm = new PopupWithConfirmation(popupConfirm, deleteCard);
 const popupFormAvatar  = new PopupWithForm(popupAvatarSelector, updateAvatar);
 const popupImage = new PopupWithImage(popupImageSelector);
 const userProfileInfo = new UserInfo(profileFields);
