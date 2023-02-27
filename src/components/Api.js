@@ -4,24 +4,21 @@ export class Api {
     this._baseUrl = url;
   }
 
+  _getResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   async getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, this._options)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res)
-      })
+      .then((res) => this._getResponse(res));
   }
 
   async getProfileInfo() {
     return fetch(`${this._baseUrl}/users/me`, this._options)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res)
-      })
+      .then((res) => this._getResponse(res));
   }
 
   async setProfileInfo(options) {
@@ -29,12 +26,7 @@ export class Api {
       ...this._options,
       ...options
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res)
-      })
+      .then((res) => this._getResponse(res));
   }
 
   async addNewCard(options) {
@@ -42,12 +34,7 @@ export class Api {
       ...this._options,
       ...options
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res)
-      })
+      .then((res) => this._getResponse(res));
   }
 
   async deleteCard(options, cardId) {
@@ -55,12 +42,7 @@ export class Api {
       ...this._options,
       ...options
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res)
-      })
+      .then((res) => this._getResponse(res));
   }
 
   async likeCard(options, cardId) {
@@ -68,12 +50,7 @@ export class Api {
       ...this._options,
       ...options
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res)
-      })
+      .then((res) => this._getResponse(res));
   }
 
   async updateAvatar(options){
@@ -81,12 +58,7 @@ export class Api {
       ...this._options,
       ...options
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res)
-      })
+      .then((res) => this._getResponse(res));
   }
 }
 

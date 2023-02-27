@@ -7,29 +7,15 @@ export class PopupWithConfirmation extends Popup {
     this._submitFunction = submitFunction;
   }
 
-  open(data) {
-    this._card = data;
+  open(card) {
+    this._card = card;
     super.open();
-  }
-
-  _deleteCard() {
-    this._submitFunction(this._card.dataset.id)
-      .catch((err) => {
-        return err.json()
-          .then((err) => {
-            console.log(err.message)
-          })
-      })
-      .finally(() => {
-        this._card.remove()
-        this.close();
-      });
   }
 
   _handleSubmit = () => {
     this._popupConfirmForm.addEventListener('submit', event => {
       event.preventDefault();
-      this._deleteCard();
+      this._submitFunction(this._card);
     })
   }
 

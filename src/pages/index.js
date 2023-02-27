@@ -22,12 +22,12 @@ import {
   buttonEditAvatar
 } from '../utils/constants';
 
+const userProfileInfo = new UserInfo(profileFields);
 const popupFormCard = new PopupWithForm(popupCardSelector, addCard);
 const popupFormProfile = new PopupWithForm(popupProfileSelector, saveProfileChanges);
 const popupFormConfirm = new PopupWithConfirmation(popupConfirm, deleteCard);
 const popupFormAvatar  = new PopupWithForm(popupAvatarSelector, updateAvatar);
 const popupImage = new PopupWithImage(popupImageSelector);
-const userProfileInfo = new UserInfo(profileFields);
 
 //Валидация
 const formsValidator = {}
@@ -45,7 +45,6 @@ const enableValidator = (config) => {
 }
 
 const cardList = new Section({
-  items: [],
   renderer: (item) => {
     const cardElement = createCard(item);
     cardList.addItem(cardElement);
@@ -60,49 +59,95 @@ const api = new Api('https://mesto.nomoreparties.co/v1/cohort-60',
     }
   });
 
-////////////////////
-//Колбэки для форм//
-//↓↓↓          ↓↓↓//
-////////////////////
-
-function addCard(data) {
-  return api.addNewCard({
+function addCard(data, form) {
+  const defaultText = initLoading(true, form);
+  api.addNewCard({
     method: 'POST',
     body: JSON.stringify(data)
   })
     .then((res) => {
+      this.close();
       cardList.addItem(createCard(res), 'prepend');
     })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      initLoading(false, form, defaultText);
+    });
 }
 
-function saveProfileChanges(data) {
-  userProfileInfo.setUserInfo(data)
-  return  api.setProfileInfo({
+function saveProfileChanges(data, form) {
+  const defaultText = initLoading(true, form);
+  api.setProfileInfo({
     method: 'PATCH',
     body: JSON.stringify(data)
   })
+    .then(() => {
+      this.close();
+      userProfileInfo.setUserInfo(data);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      initLoading(false, form, defaultText);
+    });
 }
 
-function updateAvatar(data) {
-  return api.updateAvatar({
+function updateAvatar(data, form) {
+  const defaultText = initLoading(true, form);
+  api.updateAvatar({
     method: 'PATCH',
     body: JSON.stringify(data)
   })
     .then((res) => {
-      userProfileInfo.setUserAvatar(res)
+      this.close();
+      userProfileInfo.setUserAvatar(res);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      initLoading(false, form, defaultText);
+    });
+}
+
+function deleteCard(data) {
+  api.deleteCard({
+    method: 'DELETE',
+  }, data.getCardId())
+    .then(() => {
+      this.close();
+      data.removeCard();
+    })
+    .catch((err) => {
+      console.log(err)
     })
 }
 
-function deleteCard(cardId) {
-  return api.deleteCard({
-    method: 'DELETE',
-  }, cardId)
+function likeCard(data, method) {
+  api.likeCard({
+    method: method
+  }, data.getCardId())
+    .then((res) => {
+      data.updateLikes(res);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
-////////////////////
-//↑↑↑          ↑↑↑//
-//Колбэки для форм//
-////////////////////
+function initLoading(isLoading, form, text='') {
+  const button = form.querySelector('.popup__save-button');
+  if(isLoading) {
+    const defaultText = button.textContent;
+    button.textContent = 'Сохранение...';
+    return defaultText
+  } else {
+    button.textContent = text
+  }
+}
 
 function createCard(item) {
   const card = new Card(item,
@@ -115,16 +160,8 @@ function createCard(item) {
   return card.generateCard();
 }
 
-function likeCard(cardId, method, func) {
-  api.likeCard({
-      method: method
-  },cardId)
-    .then((res) => {
-      func(res)
-    })
-}
-function fillProfileInputs(data, form) {
-  form.setInputValues(data);
+function fillProfileInputs(values, form) {
+  form.setInputValues(values);
 }
 
 buttonEditProfile.addEventListener('click', () => {
@@ -140,26 +177,24 @@ buttonAddCard.addEventListener('click', () => {
 });
 
 buttonEditAvatar.addEventListener('click', () => {
-  fillProfileInputs(userProfileInfo.getUserAvatar(), popupFormAvatar);
   formsValidator['avatarEditForm'].resetValidation();
   popupFormAvatar.open()
 })
 
-api.getInitialCards()
-  .then((res) => {
-    res.forEach(item => {
-      cardList.addItem(createCard(item));
-    })
+Promise.all([
+  api.getProfileInfo(),
+  api.getInitialCards()
+])
+  .then(([user, cards]) => {
+    userProfileInfo.setUserAvatar(user);
+    userProfileInfo.setUserInfo(user);
+    userProfileInfo.setUserId(user)
+    cardList.renderItems(cards)
+  })
+  .catch((err) => {
+    console.log(err)
   })
 
-api.getProfileInfo()
-  .then((res)=> {
-    userProfileInfo.setUserAvatar(res);
-    userProfileInfo.setUserInfo(res);
-    userProfileInfo.setUserId(res);
-  })
-
-cardList.renderItems();
 popupFormCard.setEventListeners();
 popupFormProfile.setEventListeners();
 popupImage.setEventListeners();
