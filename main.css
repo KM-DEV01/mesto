@@ -7,7 +7,8 @@
 .header__logo{display:block;margin:45px 0 41px}@media screen and (max-width:656px){.header__logo{height:24px;margin:28px 0 31px 27px}}
 .profile{align-items:center;display:flex;justify-content:space-between;margin-top:40px}@media screen and (max-width:656px){.profile{flex-direction:column;margin-top:42px}}
 .profile__container{align-items:center;display:flex}@media screen and (max-width:656px){.profile__container{flex-direction:column}}
-.profile__image{background-image:url(https://a.d-cd.net/79e97a5s-960.jpg);background-position:50%;background-size:cover;border-radius:50%;cursor:pointer;height:120px;position:relative;width:120px}.profile__image:before{background-color:#000;content:"";height:100%;opacity:0;position:absolute;transition:opacity .2s ease-in;width:100%;z-index:2}.profile__image:hover:before{opacity:.8}.profile__image:hover .profile__avatar-edit{opacity:1}
+.profile__image{cursor:pointer;height:120px;position:relative;width:120px}.profile__image:before{background-color:#000;border-radius:50%;content:"";height:100%;opacity:0;position:absolute;transition:opacity .2s ease-in;width:100%;z-index:2}.profile__image:hover:before{opacity:.8}.profile__image:hover .profile__avatar-edit{opacity:1}
+.profile__avatar{border-radius:50%;height:120px;-o-object-fit:cover;object-fit:cover;width:120px}
 .profile__avatar-edit{height:26px;left:50%;opacity:0;position:absolute;top:50%;transform:translate(-50%,-50%);transition:opacity .2s ease-in;width:26px;z-index:3}
 .profile__info{display:flex;flex-direction:column;margin-left:30px;max-width:336px;row-gap:8px}@media screen and (max-width:656px){.profile__info{align-items:center;margin:26px 0 36px;row-gap:6px}}@media screen and (max-width:336px){.profile__info{max-width:281px}}
 .profile__main-info{align-items:center;display:flex;flex-wrap:nowrap}
