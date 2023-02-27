@@ -20,19 +20,7 @@ export class PopupWithForm extends Popup {
   _handleSubmit = () => {
     this._popupForm.addEventListener('submit', event => {
       event.preventDefault();
-      const text = this._submitButton.textContent
-      this._submitButton.textContent = 'Сохранение...'
       this._submitFunction(this._getInputValue(), this._popupForm)
-        .catch((err) => {
-          return err.json()
-            .then((err) => {
-            console.log(err.message)
-          })
-        })
-        .finally(() => {
-          this._submitButton.textContent = text;
-          this.close();
-        });
     })
   }
 

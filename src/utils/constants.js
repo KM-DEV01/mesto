@@ -23,5 +23,5 @@ export const popupAvatarSelector = '.popup_type_avatar';
 export const profileFields = {
   name: '.profile__name',
   about: '.profile__caption',
-  avatar: '.profile__image'
+  avatar: '.profile__avatar'
 }

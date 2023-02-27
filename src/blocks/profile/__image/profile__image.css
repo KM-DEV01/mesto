@@ -1,14 +1,9 @@
 .profile__image {
 	width: 120px;
 	height: 120px;
-	border-radius: 50%;
-	background-image: url("https://a.d-cd.net/79e97a5s-960.jpg");
-	background-position: center;
-	background-size: cover;
 	position: relative;
 	cursor: pointer;
 }
-
 .profile__image::before {
 	content: '';
 	background-color: black;
@@ -18,12 +13,13 @@
 	opacity: 0;
 	z-index: 2;
 	transition: opacity .2s ease-in;
+	border-radius: 50%;
 }
 
 .profile__image:hover::before {
 	opacity: .8;
 }
 
-.profile__image:hover .profile__avatar-edit{
+.profile__image:hover .profile__avatar-edit {
 	opacity: 1;
 }
