@@ -79,10 +79,10 @@ export class Card {
 
   _setEventListeners() {
     this._cardImage.addEventListener('click', () => {
-      this._handleCardClick(this._data)
+      this._handleCardClick(this._data);
     });
     this._cardLikeButton.addEventListener('click', () => {
-      this._handleLikeImage()
+      this._handleLikeImage();
     });
     if(this._cardDeleteButton){
       this._cardDeleteButton.addEventListener('click', () => {
