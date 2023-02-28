@@ -59,57 +59,57 @@ const api = new Api('https://mesto.nomoreparties.co/v1/cohort-60',
     }
   });
 
-function addCard(data, form) {
-  const defaultText = initLoading(true, form);
+function addCard(data) {
+  data.isLoading();
   api.addNewCard({
     method: 'POST',
-    body: JSON.stringify(data)
+    body: JSON.stringify(data.getInputValue())
   })
     .then((res) => {
-      this.close();
       cardList.addItem(createCard(res), 'prepend');
+      popupFormCard.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      initLoading(false, form, defaultText);
+      data.isLoading(false);
     });
 }
 
-function saveProfileChanges(data, form) {
-  const defaultText = initLoading(true, form);
+function saveProfileChanges(data) {
+  data.isLoading();
   api.setProfileInfo({
     method: 'PATCH',
-    body: JSON.stringify(data)
+    body: JSON.stringify(data.getInputValue())
   })
-    .then(() => {
-      this.close();
-      userProfileInfo.setUserInfo(data);
+    .then((res) => {
+      userProfileInfo.setUserInfo(res);
+      popupFormProfile.close();
     })
     .catch((err) => {
       console.log(err)
     })
     .finally(() => {
-      initLoading(false, form, defaultText);
+      data.isLoading(false);
     });
 }
 
-function updateAvatar(data, form) {
-  const defaultText = initLoading(true, form);
+function updateAvatar(data) {
+  data.isLoading();
   api.updateAvatar({
     method: 'PATCH',
-    body: JSON.stringify(data)
+    body: JSON.stringify(data.getInputValue())
   })
     .then((res) => {
-      this.close();
       userProfileInfo.setUserAvatar(res);
+      popupFormAvatar.close();
     })
     .catch((err) => {
       console.log(err)
     })
     .finally(() => {
-      initLoading(false, form, defaultText);
+      data.isLoading(false);
     });
 }
 
@@ -118,8 +118,8 @@ function deleteCard(data) {
     method: 'DELETE',
   }, data.getCardId())
     .then(() => {
-      this.close();
       data.removeCard();
+      popupFormConfirm.close();
     })
     .catch((err) => {
       console.log(err)
@@ -136,17 +136,6 @@ function likeCard(data, method) {
     .catch((err) => {
       console.log(err)
     })
-}
-
-function initLoading(isLoading, form, text='') {
-  const button = form.querySelector('.popup__save-button');
-  if(isLoading) {
-    const defaultText = button.textContent;
-    button.textContent = 'Сохранение...';
-    return defaultText
-  } else {
-    button.textContent = text
-  }
 }
 
 function createCard(item) {
